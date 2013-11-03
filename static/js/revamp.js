@@ -26,6 +26,7 @@ $(document).ready(function() {
 		console.log($('#user_email_input').val());
 		$.post('/coupon', {'email': $('#user_email_input').val(),'myShareLink':my_url});
 		countAction('submit_email');
+		$('#share-form').html('<b>Thank you.</b>');
 	});
 
 	// SOCIALS
