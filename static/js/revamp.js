@@ -20,7 +20,7 @@ $(document).ready(function() {
 		});
 		$('#twitter-button').click(function(e) {
 			window.open(
-				'https://twitter.com/intent/tweet?url='+encodeURIComponent('http://google.com/?a=test')+'&text='+encodeURIComponent('Test here <'),
+				'https://twitter.com/intent/tweet?url='+encodeURIComponent("<%= myShareLink %>")+'&text='+encodeURIComponent('<%= myShareLink %>'),
 				'_blank', 'width=626,height=436')
 		});
 		$('#Gp-button').click(function(e) {
