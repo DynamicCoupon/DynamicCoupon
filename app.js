@@ -20,8 +20,8 @@ mongoose.connect(database_url.url);
 var threshold_1 = 1;
 
 var onlyMerchant = {
-	rewardUrl : "google.png",
-	highRewardUrl : "twitter.png",
+	rewardUrl : "AmazonMockup15.png",
+	highRewardUrl : "AmazonMockup25.png",
 	merchant_reward: 10
 };
 
@@ -143,7 +143,7 @@ app.get('/coupon', function(req, res){
 	console.log(myShareLink);
 	myShareLink =  generateRandomNumber();
 	myCoupon = onlyMerchant.rewardUrl;
-    res.render( 'images.html', {myShareLink : "http://dynamiccoupon.co/coupon/"+myShareLink, myCouponImage: myCoupon});
+    res.render( 'images.html', {myShareLink : "http://dynamiccoupon.co/coupon/"+myShareLink});
 });
 
 
@@ -160,12 +160,8 @@ app.post('/coupon', function(req, res) {
 	baseUrl = "http://dynamiccoupon.co/coupon/";
 	myShareLink = baseUrl+myShareLink;
 	
-	sendHTMLEmail("Thank You for Using Dynamic Coupon", "textfiled", email, "couponEmail.html", "static/"+onlyMerchant.rewardUrl);
+	// sendHTMLEmail("Thank You for Using Dynamic Coupon", "textfiled", email, "couponEmail.html", "static/"+onlyMerchant.rewardUrl);
 
-	// sendEmail("Thank You for Using Dynamic Coupon", "Link to share to friends: "+myShareLink+"\n", email);
-
-	//sendEmail("Thank You for Using Dynamic Coupon", "Link to share to friends: "+myShareLink+"\n", email);
-    // res.redirect('/success');
     res.send("");
 });
 
@@ -202,8 +198,8 @@ app.get('/coupon/:couponID?', function(req,res){
 						var baseUrl = "http://dynamiccoupon.co/coupon/";
 						var myShareLink = baseUrl+obj.shareLink;
 						var emailText = "You won a new coupon! "+obj.numberOfShares+ " of your friends views your coupon. \n \n Share you coupon with more friends: "+myShareLink+"\n";
-						// sendEmail(subject, emailText, obj.email);
-						sendHTMLEmail(subject, emailText , obj.email , "couponEmail.html", "static/"+onlyMerchant.highRewardUrl);
+						
+						// sendHTMLEmail(subject, emailText , obj.email , "couponEmail.html", "static/"+onlyMerchant.highRewardUrl);
 
 						console.log("Sent eamil:"+emailText);
 					}

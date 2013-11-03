@@ -1,6 +1,45 @@
-.space {
-	margin-top: 100px;
-	/*display: none;*/
+.container {
+	max-width: 800px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.coupon_block {
+	width: 45%;
+	display: inline-block;
+}
+
+.vertical-center {
+	vertical-align: top;
+}
+
+.coupon_block:first-child {
+	margin-right: 8%;
+}
+
+.coupon_image_container {
+	position: relative;
+}
+
+.couponc {
+	opacity: .2;
+	width: 100%;
+	margin: auto;
+	display: block;
+	padding: 22px;
+	border: 1px dashed black;
+	border-radius: 5px;
+}
+
+.coupon_overlay {
+	position: absolute;
+	left: 81px;
+	bottom: 131px;
+}
+
+.or {
+	display: inline;
 }
 
 .inac-parent {
@@ -23,19 +62,25 @@
 
 #form_and_social {
 	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: white;
+	padding: 13px;
 }
 
-#share_container {
-	opacity: .2;
+
+.social_button {
+
 }
 
 #FB-button {
 	background-attachment: scroll;
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
-	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-vflsuIoGD.png);
 	background-origin: padding-box;
-	background-position: 0px -1285px;
+	background-position: 0px -1842px;
 	background-size: 32px;	
 	height: 32px;
 	width: 32px;
@@ -47,9 +92,9 @@
 	background-attachment: scroll;
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
-	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-vflsuIoGD.png);
 	background-origin: padding-box;
-	background-position: 0px -1230px;
+	background-position: 0px -92px;
 	background-size: 32px;	
 }
 
@@ -57,9 +102,9 @@
 	background-attachment: scroll;
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
-	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-vflsuIoGD.png);
 	background-origin: padding-box;
-	background-position: 0px -1140px;
+	background-position: 0px -1426px;
 	background-size: 32px;
 	height: 32px;
 	width: 32px;
@@ -71,8 +116,20 @@
 	background-attachment: scroll;
 	background-clip: border-box;
 	background-color: rgba(0, 0, 0, 0);
-	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-vflsuIoGD.png);
 	background-origin: padding-box;
-	background-position: 0px -800px;
+	background-position: 0px -873px;
+	background-size: 32px;
+}
+
+#email-button {
+	height: 32px;
+	width: 32px;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: url(email.png);
+	background-origin: padding-box;
+	background-position: 0px 0px;
 	background-size: 32px;
 }
