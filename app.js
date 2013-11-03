@@ -35,7 +35,7 @@ var userScheme = mongoose.Schema({
 var usermodel = mongoose.model('user',userScheme);
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 app.set('views', path.join(__dirname, 'views'));
 // app.set('views', __dirname + '/views');
 app.engine('html', require('ejs').renderFile);
@@ -105,7 +105,10 @@ server.send(message, function(err, message) { console.log(err || message); });
 // 	}, function(err, message) { console.log(err || message); });
 // };
 
-app.get('/', routes.index);
+app.get('/', function(req,res){
+	res.redirect('/coupon');
+
+});
 
 
 app.get('/temp', function(req,res){
