@@ -29,10 +29,6 @@ $(document).ready(function() {
 		$('#share-form').html('<b>Thank you.</b>');
 	});
 
-	// SOCIALS
-	// $('#share-form')
-	// .html('<b>Great! Share with 2 friends to get your 25% off!<b><div style=\"height: 5px; \"></div>');
-	// $('#hide_social').remove();
 	$('#share_container').append('<div class="social_button">Link: ' + my_url + '</div>');
 	$('#FB-button').click(function(e) {
 		window.open(
