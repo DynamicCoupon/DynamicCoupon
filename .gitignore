@@ -1,1 +1,4 @@
 node_modules
+database_url.js
+emailCredentials.js
+

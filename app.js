@@ -3,13 +3,36 @@
  * Module dependencies.
  */
 
-var express = require('express');
-var routes = require('./routes');
-var user = require('./routes/user');
-var http = require('http');
-var path = require('path');
+var express = require('express')
+, 	routes = require('./routes')
+,	user = require('./routes/user')
+,	http = require('http')
+,	path = require('path')
+,	mongoose = require ('mongoose')
+,	emailCredentials = require('./emailCredentials')
+, 	email = require('emailjs/email')
+,	database_url = require('./database_url'); //include database address
 
 var app = express();
+
+mongoose.connect(database_url.url);
+
+var threshold_1 = 1;
+
+var onlyMerchant = {
+	rewardUrl : "http://investmentec.com/wp-content/uploads/2010/02/investing.jpg",
+	highRewardUrl : "http://investmentec.com/wp-content/uploads/2010/02/High-Risk-High-Reward-Investment.jpg",
+	merchant_reward: 10
+};
+
+var userScheme = mongoose.Schema({
+	email: String,
+	shareLink: String,
+	numberOfShares: Number
+});
+
+//create model
+var usermodel = mongoose.model('user',userScheme);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -29,8 +52,152 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+
+function sendHTMLEmail(subjectField, textField, toField, htmlToSent, couponImageToSent)
+{
+	var server  = email.server.connect({
+   	user:    emailCredentials.user, 
+   	password:emailCredentials.pass,
+   	host:    emailCredentials.server,
+   	ssl:     true
+});
+
+var message = email.message.create(
+{
+   	subject: subjectField,
+	from:    "Dynamic Coupon <coupon@dynamiccoupon.co>", 
+	to:      toField,
+   	text:    textField
+});
+
+message.attach({path:htmlToSent, alternative:true});
+message.attach({path:couponImageToSent, type:"image/png", name:"my-coupon.png", headers:{"Content-ID":"my-coupon"}});
+
+// send the message and get a callback with an error or details of the message that was sent
+server.send(message, function(err, message) { console.log(err || message); });
+
+// you can continue to send more messages with successive calls to 'server.send', 
+// they will be queued on the same smtp connection
+
+// or you can create a new server connection with 'email.server.connect' 
+// to asynchronously send individual emails instead of a queue
+}
+
+function sendEmail(subjectField, textField, toField)
+{
+	var server  = email.server.connect({
+   	user:    emailCredentials.user, 
+   	password:emailCredentials.pass,
+   	host:    emailCredentials.server,
+   	ssl:     true
+
+});
+
+// send the message and get a callback with an error or details of the message that was sent
+server.send({
+   	text:    textField, 
+   	from:    "Dynamic Coupon <coupon@dynamiccoupon.co>", 
+   	to:      toField,
+   	subject: subjectField
+	}, function(err, message) { console.log(err || message); });
+};
+
 app.get('/', routes.index);
 app.get('/users', user.list);
+function addUser(email,myShareLink){
+	var newitem = new usermodel({
+			email:email,
+			shareLink:myShareLink,
+			numberOfShares:0,
+		});
+
+	newitem.save(function(err,newitem) {
+	if (err)
+		console.log("database save error");
+	else
+		console.log("data saved");
+  	mongoose.connection.close();
+});
+
+};
+
+app.get('/coupon', function(req, res){
+	var myShareLink = "abc";
+	var rewardLevel = req.query.v;
+	console.log(rewardLevel);
+	console.log(myShareLink);
+	// var randomNumber = generateRandomNumber();
+	myShareLink =  generateRandomNumber();
+	myCoupon = onlyMerchant.rewardUrl;
+    res.render( 'coupon.jade', { myShareLink: myShareLink, myCoupon: myCoupon  } );
+});
+
+
+app.post('/coupon', function(req, res) {
+    var email = req.body.email;
+    var myShareLink = req.body.myShareLink;
+    console.log('asdfsd');
+    console.log(myShareLink);
+    console.log(email);
+	addUser(email,myShareLink);
+	baseUrl = "http://dynamiccoupon.co/coupon/";
+	myShareLink = baseUrl+myShareLink;
+	
+	sendHTMLEmail("Thank You for Using Dynamic Coupon", "textfiled", email, "couponEmail.html", "0.png");
+
+	// sendEmail("Thank You for Using Dynamic Coupon", "Link to share to friends: "+myShareLink+"\n", email);
+
+	//sendEmail("Thank You for Using Dynamic Coupon", "Link to share to friends: "+myShareLink+"\n", email);
+    res.redirect('/success');
+});
+
+
+app.get('/success', function (req,res){
+	res.send("success");
+});
+
+function generateRandomNumber()
+{
+	buf = require('crypto').randomBytes(8);
+	return buf.toString('hex');
+}
+
+function findUser(couponID){
+
+};
+
+app.get('/coupon/:couponID?', function(req,res){
+	couponID = req.params.couponID;
+	console.log(couponID);
+
+	usermodel.findOne({shareLink: couponID}, function(err,obj){
+		if (obj != null){
+			obj.update({$inc: {numberOfShares:1}}, { w: 1 }, function(err,doc){
+				// Checking rewards
+				if(obj.numberOfShares >= onlyMerchant.merchant_reward) {
+					// Send reminder for the new reward
+					var subject = "Congratulation: Reached new coupon reward: ??%!";
+					var baseUrl = "http://dynamiccoupon.co/coupon/";
+					var myShareLink = baseUrl+obj.shareLink;
+					var emailText = "You won a new coupon! "+obj.numberOfShares+ " of your friends views your coupon. \n \n Share you coupon with more friends: "+myShareLink+"\n";
+					sendEmail(subject, emailText, obj.email);
+					console.log("Sent eamil:"+emailText);
+				}
+				res.redirect('/coupon');
+				console.log(obj.numberOfShares);
+			});
+		}
+		else
+		{
+				console.log("normal user");
+				res.redirect('/coupon');
+		}
+	});
+
+});
+
+
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
