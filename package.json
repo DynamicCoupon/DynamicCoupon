@@ -10,6 +10,7 @@
     "jade": "*",
     "mongoose": "*",
     "emailjs": "*",
+    "ejs":"*",
     "stylus": "*"
   }
 }
