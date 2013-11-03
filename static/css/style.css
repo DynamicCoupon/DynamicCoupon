@@ -1,0 +1,78 @@
+.space {
+	margin-top: 100px;
+	/*display: none;*/
+}
+
+.inac-parent {
+	position: relative;
+}
+
+.inac-child {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	opacity: .5;
+}
+
+.fb-send {
+	min-width: 90px;
+}
+
+#form_and_social {
+	display: none;
+}
+
+#share_container {
+	opacity: .2;
+}
+
+#FB-button {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-origin: padding-box;
+	background-position: 0px -1285px;
+	background-size: 32px;	
+	height: 32px;
+	width: 32px;
+}
+
+#twitter-button {
+	height: 32px;
+	width: 32px;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-origin: padding-box;
+	background-position: 0px -1230px;
+	background-size: 32px;	
+}
+
+#Gp-button {
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-origin: padding-box;
+	background-position: 0px -1140px;
+	background-size: 32px;
+	height: 32px;
+	width: 32px;
+}
+
+#tumblr-button {
+	height: 32px;
+	width: 32px;
+	background-attachment: scroll;
+	background-clip: border-box;
+	background-color: rgba(0, 0, 0, 0);
+	background-image: url(http://s.ytimg.com/yts/imgbin/www-sharing-2x-vflua503G.webp);
+	background-origin: padding-box;
+	background-position: 0px -800px;
+	background-size: 32px;
+}
