@@ -1,0 +1,21 @@
+<html>
+<body>
+<p>myShareLink: #{myShareLink}</p>
+<p>myPrivateLink: #{myPrivateLink}</p>
+
+<img src="#{myCoupon}"> </img>
+
+<form action="/coupon" method="post">
+<div>
+<input type="text" name="myShareLink" value=#{myShareLink} hidden/><br />
+</div>
+<div>
+<label>Email:</label>
+<input type="text" name="email"/><br/>
+</div>
+<div><input type="submit" value="submit"/></div>
+</form>
+
+
+</body>
+</html>
